@@ -1,0 +1,50 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9; /* Fundo claro */
+}
+
+header {
+    background-color: #333; /* Cor de fundo escura */
+    color: white; /* Texto branco */
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem; /* Tamanho grande do título */
+    margin-bottom: 15px;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: white; /* Cor do texto dos links */
+    text-decoration: none; /* Remove o sublinhado */
+    margin: 0 15px;
+    font-size: 1.2rem;
+}
+
+nav a:hover {
+    text-decoration: underline; /* Sublinha o link ao passar o mouse */
+}
+main {
+    padding: 20px;
+}
+
+.graficos-section {
+    max-width: 1200px; /* Largura máxima para o conteúdo */
+    margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+.graficos-container {
+    background-color: #fff; /* Fundo branco para os gráficos */
+    padding: 20px;
+    border-radius: 8px; /* Cantos arredondados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-top: 20px;
+}
