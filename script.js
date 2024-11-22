@@ -1,90 +1,117 @@
-let ctx = document.getElementById('chart').getContext('2d');
+const getCSS = (variavel) => {
+    const bodyStyles = getComputedStyle(document.body)
+    return bodyStyles.getPropertyValue(variavel)
+}
 
-Chart.defaults.global.defaultFontFamily = 'Roboto'
+const tickConfig = {
+    family: getCSS('--font'),
+    size: 16,
+    color: getCSS('--primary-color')
+}
 
-let chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
-    // The data for our dataset
-    data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            label: "My First dataset",
-            backgroundColor: [
-                'rgba(41, 128, 185,0.8)',
-                'rgba(41, 128, 185,0.8)',
-                'rgba(52, 73, 94,0.8)',
-                'rgba(44, 62, 80,0.8)',
-                'rgba(149, 165, 166,0.8)',
-                'rgba(127, 140, 141,0.8)'
-            ],
-            borderColor: [
-                'rgba(41, 128, 185,1.0)',
-                'rgba(41, 128, 185,1.0)',
-                'rgba(52, 73, 94,1.0)',
-                'rgba(44, 62, 80,1.0)',
-                'rgba(149, 165, 166,1.0)',
-                'rgba(127, 140, 141,1.0)'
-            ],
-            data: [0, 10, 5, 2, 20, 30, 45],
-        }]
-    },
-    // Configuration options go here
-    options: {
-        animation : {
-            duration : 2000,
-            easing : 'easeOutBounce'
-        },
-        layout : {
-            padding : {
-                left : 20,
-                right : 20,
-                top : 20,
-                bottom : 20
+export {getCSS, tickConfig}
+
+
+
+
+
+
+
+
+const url = 'https://raw.githubusercontent.com/guilhermeonrails/api/main/dados-globais.json'
+
+async function vizualizarInformacoesGlobais() {
+    const res = await fetch(url)
+    const dados = await res.json()
+    const pessoasConectadas = (dados.total_pessoas_conectadas / 1e9)
+    const pessoasNoMundo = (dados.total_pessoas_mundo / 1e9)
+    const horas = parseInt(dados.tempo_medio)
+    const minutos = Math.round((dados.tempo_medio - horas) * 100)
+    const porcentagemConectada = ((pessoasConectadas / pessoasNoMundo ) * 100).toFixed(2)
+
+    const paragrafo = document.createElement('p')
+    paragrafo.classList.add('graficos-container__texto')
+    paragrafo.innerHTML = `Você sabia que o mundo tem <span>${pessoasNoMundo} bilhões</span> de pessoas e que aproximadamente <span>${pessoasConectadas} bilhões</span> estão conectadas em alguma rede social e passam em média <span>${horas} horas</span> e <span>${minutos} minutos</span> conectadas.<br>Isso significa que aproximadamente <span>${porcentagemConectada}%</span> de pessoas estão conectadas em alguma rede social.`
+
+    const container = document.getElementById('graficos-container')
+    container.appendChild(paragrafo)
+}
+
+vizualizarInformacoesGlobais()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { getCSS, tickConfig } from "./common.js"
+
+async function quantidadeUsuariosPorRede() {
+    const url = 'https://raw.githubusercontent.com/guilhermeonrails/api/main/numero-usuarios.json'
+    const res = await fetch(url)
+    const dados = await res.json()
+    const nomeDasRedes = Object.keys(dados)
+    const quantidadeDeUsuarios = Object.values(dados)
+
+    const data = [
+        {
+            x: nomeDasRedes, 
+            y: quantidadeDeUsuarios, 
+            type: 'bar',
+            marker: {
+                color: getCSS('--primary-color')
+            }
+        }
+    ]
+
+    const laytout = {
+        plot_bgcolor: getCSS('--bg-color'),
+        paper_bgcolor: getCSS('--bg-color'),
+        title: {
+            text: 'Redes sociais com mais usuários',
+            x: 0,
+            font: {
+                color: getCSS('--primary-color'),
+                size: 30,
+                font: getCSS('--font')
             }
         },
-        legend : {
-            display : true,
-            position : 'bottom'
-        },
-        title : {
-            display : true,
-            text : 'Sales by Months',
-            fontSize : 20
-        },
-        tooltips : {
-            enabled : true,
-            intersect : true,
-            backgroundColor : 'rgba(41, 128, 185,0.8)'
-        },
-        scales : {
-            xAxes : [{
-                gridLines : {
-                    display : false,
-                    drawBorder : false
-                },
-                position : 'bottom'
-            }],
-            yAxes : [{
-
-                gridLines : {
-                    display : false,
-                    drawBorder : false
+        xaxis: {
+            tickfont: tickConfig,
+            title: {
+                text: 'Nome das redes',
+                font: {
+                    color: getCSS('--secondary-color')
                 }
-            }]
+            }
+        },
+        yaxis: {
+            tickfont: tickConfig,
+            title: {
+                text: 'Bilhões de usuários ativos',
+                font: {
+                    color: getCSS('--secondary-color')
+                }
+            }
         }
     }
-});
 
-const addData = () => {
-    let sizeData = chart.data.datasets[0].data.length
-    chart.data.datasets[0].data[sizeData] = Math.random() * 100
-    chart.data.labels[sizeData] = `New Data ${sizeData + 1}`
-    chart.update()
+    const grafico = document.createElement('div')
+    grafico.className = 'grafico'
+    document.getElementById('graficos-container').appendChild(grafico)
+    Plotly.newPlot(grafico, data, laytout)
 }
 
-const removeData = () => {
-    chart.data.datasets[0].data.pop()
-    chart.data.labels.pop()
-    chart.update()
-}
+quantidadeUsuariosPorRede()
+

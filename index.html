@@ -3,23 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abandono de Animais</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Relatório sobre Celulares</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
-        <h1>Abandono de Animais</h1>
+        <h1>Relatório de Vendas de Celulares</h1>
         <nav>
-            <a href="index.html">Causas de Abandono</a>
-            <a href="#">Abandono nos últimos anos</a>
+            <ul>
+                <li><a href="#grafico1">Vendas de Celulares</a></li>
+                <li><a href="#grafico2">Clientes por Modelo</a></li>
+            </ul>
         </nav>
     </header>
-    <main class="graficos-section">
-        <section id="graficos-container" class="graficos-container">
-            <!-- crie os gráficos/texto aqui -->
+
+    <main>
+        <section id="grafico1">
+            <h2>Vendas de Celulares (em unidades)</h2>
+            <canvas id="lineChart"></canvas>
+        </section>
+
+        <section id="grafico2">
+            <h2>Clientes por Modelo</h2>
+            <canvas id="barChart"></canvas>
         </section>
     </main>
+
+    <footer>
+        <p>&copy; 2024 Relatório de Celulares - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
     <footer>
         <p>&copy; 2024 Fernanda Lourenço - Todos os direitos reservados.</p>
     </footer>
