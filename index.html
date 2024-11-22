@@ -1,19 +1,30 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/index.css">
-    <title>ChartJs</title>
+    <title>Análise de Dados de Redes Sociais</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
 </head>
 <body>
-    <div class="container">
-        <canvas id='chart'></canvas>
-        <button onclick="addData()">Add Data</button>
-        <button onclick="removeData()">Remove Data</button>
-    </div>
-    <script src='./node_modules/chart.js/dist/Chart.js'></script>
-    <script src="./js/index.js"></script>
+    <header>
+        <h1>Análise de Dados de Redes Sociais</h1>
+        <nav>
+            <a href="index.html">Visão Global</a>
+            <a href="#">Estudos de Caso</a>
+        </nav>
+    </header>
+    <main class="graficos-section">
+        <section id="graficos-container" class="graficos-container">
+            <!-- crie os gráficos/texto aqui -->
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Fernanda Lourenço - Todos os direitos reservados.</p>
+    </footer>
+    <script type="module" src="graficos/common.js"></script>
+    <script type="module" src="graficos/informacoesGlobais.js"></script>
+    <script type="module" src="graficos/quantidadeUsuarios.js"></script>
 </body>
 </html>
