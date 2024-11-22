@@ -30,7 +30,7 @@ main {
 
 /* Títulos das seções */
 h1, h2, h3 {
-    color: #0fa341;
+    color: #057c15;
     margin-bottom: 20px;
 }
 
@@ -85,7 +85,7 @@ table th {
 
 /* Links */
 a {
-    color: #1e9600;
+    color: #057c15;
     text-decoration: none;
     transition: color 0.3s ease;
 }
