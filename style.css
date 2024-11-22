@@ -30,7 +30,7 @@ main {
 
 /* Títulos das seções */
 h1, h2, h3 {
-    color: #ff6f61;
+    color: #0fa341;
     margin-bottom: 20px;
 }
 
@@ -51,8 +51,8 @@ canvas {
 
 /* Botões de navegação ou interação */
 button {
-    background-color: #ff6f61;
-    color: white;
+    background-color: #ffffff;
+    color: rgb(0, 167, 75);
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -62,7 +62,7 @@ button {
 }
 
 button:hover {
-    background-color: #e65b54;
+    background-color: #f7f7f7;
 }
 
 /* Tabelas de dados */
@@ -79,13 +79,13 @@ table th, table td {
 }
 
 table th {
-    background-color: #ff6f61;
+    background-color: #f3f3f3;
     color: white;
 }
 
 /* Links */
 a {
-    color: #ff6f61;
+    color: #1e9600;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -97,7 +97,7 @@ a:hover {
 /* Rodapé */
 footer {
     background-color: #333;
-    color: #fff;
+    color: #057c15;
     text-align: center;
     padding: 10px;
     margin-top: 20px;
