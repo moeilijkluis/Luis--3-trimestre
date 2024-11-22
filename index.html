@@ -1,29 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Abandono de Animais</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
-        <h1>Relatório de Abandono de Animais</h1>
+        <h1>Abandono de Animais</h1>
         <nav>
-            <a href="index.html">Mundo</a>
-            <a href="#">Brasil</a>
+            <ul>
+                <li><a href="#grafico1">Causas de Abandono de Animais</a></li>
+                <li><a href="#grafico2">Número de Abandono nos últimos anos</a></li>
+            </ul>
         </nav>
     </header>
-    <main class="graficos-section">
-        <section id="graficos-container" class="graficos-container">
-            <canvas id="graficoMundo"></canvas>
-            <canvas id="graficoBrasil"></canvas>
+
+    <main>
+        <section id="grafico1">
+            <h2>Causas de Abandono de Animais</h2>
+            <canvas id="lineChart"></canvas>
+        </section>
+
+        <section id="grafico2">
+            <h2>Número de Abandono nos últimos anos</h2>
+            <canvas id="barChart"></canvas>
         </section>
     </main>
+
     <footer>
-        <p>Desenvolvido por Fernanda Lourenço</p>
+        <p>&copy; Feito por Fernanda Lourenço.</p>
     </footer>
+
     <script src="scripts.js"></script>
 </body>
 </html>
+
