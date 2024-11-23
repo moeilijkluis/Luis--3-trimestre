@@ -1,62 +1,38 @@
-import { getCSS, tickConfig } from "./common.js";
+const url = 'https://raw.githubusercontent.com/guilhermeonrails/api/main/dados-globais.json';
 
-async function quantidadeAnimaisPorEspecie() {
-    const url = 'https://raw.githubusercontent.com/guilhermeonrails/api/main/numero-animais.json';
-    const res = await fetch(url);
-    const dados = await res.json();
-    const nomeDasEspecies = Object.keys(dados);
-    const quantidadeDeAnimais = Object.values(dados);
+async function vizualizarInformacoesGlobais() {
+    try {
+        // Fazendo a requisição dos dados
+        const res = await fetch(url);
+        const dados = await res.json();
 
-    const data = [
-        {
-            x: nomeDasEspecies, 
-            y: quantidadeDeAnimais, 
-            type: 'bar',
-            marker: {
-                color: getCSS('--secondary-color') // Usando a cor vibrante do tema para o gráfico
-            }
-        }
-    ];
+        // Convertendo valores para milhões (mais legível)
+        const animaisProtegidos = (dados.animais_protegidos / 1e6).toFixed(2);
+        const animaisNoMundo = (dados.animais_no_mundo / 1e6).toFixed(2);
 
-    const layout = { 
-        plot_bgcolor: getCSS('--bg-color'), // Fundo do gráfico
-        paper_bgcolor: getCSS('--bg-color'), // Fundo do papel (do gráfico)
-        title: {
-            text: 'Espécies com Mais Animais Protegidos em Santuários',
-            x: 0,
-            font: {
-                color: getCSS('--primary-color'), // Cor do título
-                size: 30,
-                family: getCSS('--font') // Fonte do título
-            }
-        },
-        xaxis: {
-            tickfont: tickConfig, // Configuração da fonte para os ticks no eixo X
-            title: {
-                text: 'Espécies de Animais',
-                font: {
-                    color: getCSS('--secondary-color') // Cor do título do eixo X
-                }
-            }
-        },
-        yaxis: {
-            tickfont: tickConfig, // Configuração da fonte para os ticks no eixo Y
-            title: {
-                text: 'Quantidade de Animais Protegidos (em milhares)',
-                font: {
-                    color: getCSS('--secondary-color') // Cor do título do eixo Y
-                }
-            }
-        }
-    };
+        // Calculando a porcentagem de animais protegidos
+        const porcentagemProtegida = ((animaisProtegidos / animaisNoMundo) * 100).toFixed(2);
 
-    // Criando o div para o gráfico
-    const grafico = document.createElement('div');
-    grafico.className = 'grafico';
-    document.getElementById('graficos-container').appendChild(grafico);
+        // Criando o parágrafo para exibição
+        const paragrafo = document.createElement('p');
+        paragrafo.classList.add('graficos-container__texto');
+        paragrafo.innerHTML = `
+            Você sabia que o mundo tem cerca de <span>${animaisNoMundo} milhões</span> de animais, 
+            e que aproximadamente <span>${animaisProtegidos} milhões</span> estão protegidos em áreas de conservação? 🦁 
+            Isso significa que cerca de <span>${porcentagemProtegida}%</span> das espécies estão vivendo sob proteção, 
+            contribuindo para a preservação da biodiversidade e o equilíbrio do nosso planeta. 🌍🐾
+        `;
 
-    // Gerando o gráfico com Plotly
-    Plotly.newPlot(grafico, data, layout);
+        // Encontrando o container onde o parágrafo será inserido
+        const container = document.getElementById('graficos-container');
+        container.appendChild(paragrafo);
+
+    } catch (error) {
+        // Tratamento de erro
+        console.error("Erro ao carregar os dados:", error);
+        const erroParagrafo = document.createElement('p');
+        erroParagrafo.classList.add('graficos-container__texto');
+        erroParagrafo.innerHTML = "Desculpe, não conseguimos carregar as informações no momento. Tente novamente mais tarde. 🦒⚠";
+        document.getElementById('graficos-container').appendChild(erroParagrafo);
+    }
 }
-
-quantidadeAnimaisPorEspecie();
