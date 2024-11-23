@@ -1,59 +1,62 @@
-import { getCSS, tickConfig } from "./common.js"
+import { getCSS, tickConfig } from "./common.js";
 
-async function quantidadeUsuariosPorRede() {
-    const url = 'https://raw.githubusercontent.com/guilhermeonrails/api/main/numero-usuarios.json'
-    const res = await fetch(url)
-    const dados = await res.json()
-    const nomeDasRedes = Object.keys(dados)
-    const quantidadeDeUsuarios = Object.values(dados)
+async function quantidadeDeAnimaisPorRegiao() {
+    const url = 'https://raw.githubusercontent.com/guilhermeonrails/api/main/habitats-animais.json';
+    const res = await fetch(url);
+    const dados = await res.json();
+    const nomeDasRegioes = Object.keys(dados);
+    const quantidadeDeAnimais = Object.values(dados);
 
     const data = [
         {
-            x: nomeDasRedes, 
-            y: quantidadeDeUsuarios, 
+            x: nomeDasRegioes, 
+            y: quantidadeDeAnimais, 
             type: 'bar',
             marker: {
-                color: getCSS('--primary-color')
+                color: getCSS('--secondary-color') // Usando a cor vibrante do tema para o gráfico
             }
         }
-    ]
+    ];
 
-    const laytout = {
-        plot_bgcolor: getCSS('--bg-color'),
-        paper_bgcolor: getCSS('--bg-color'),
+    const layout = { 
+        plot_bgcolor: getCSS('--bg-color'), // Fundo do gráfico
+        paper_bgcolor: getCSS('--bg-color'), // Fundo do papel (do gráfico)
         title: {
-            text: 'Redes sociais com mais usuários',
+            text: 'Habitats com Maior Número de Espécies Protegidas',
             x: 0,
             font: {
-                color: getCSS('--primary-color'),
+                color: getCSS('--primary-color'), // Cor do título
                 size: 30,
-                font: getCSS('--font')
+                family: getCSS('--font') // Fonte do título
             }
         },
         xaxis: {
-            tickfont: tickConfig,
+            tickfont: tickConfig, // Configuração da fonte para os ticks no eixo X
             title: {
-                text: 'Nome das redes',
+                text: 'Regiões ou Habitats',
                 font: {
-                    color: getCSS('--secondary-color')
+                    color: getCSS('--secondary-color') // Cor do título do eixo X
                 }
             }
         },
         yaxis: {
-            tickfont: tickConfig,
+            tickfont: tickConfig, // Configuração da fonte para os ticks no eixo Y
             title: {
-                text: 'Bilhões de usuários ativos',
+                text: 'Quantidade de Espécies Protegidas',
                 font: {
-                    color: getCSS('--secondary-color')
+                    color: getCSS('--secondary-color') // Cor do título do eixo Y
                 }
             }
         }
-    }
+    };
 
-    const grafico = document.createElement('div')
-    grafico.className = 'grafico'
-    document.getElementById('graficos-container').appendChild(grafico)
-    Plotly.newPlot(grafico, data, laytout)
+    // Criando o div para o gráfico
+    const grafico = document.createElement('div');
+    grafico.className = 'grafico';
+    document.getElementById('graficos-container').appendChild(grafico);
+
+    // Gerando o gráfico com Plotly
+    Plotly.newPlot(grafico, data, layout);
 }
 
-quantidadeUsuariosPorRede()
+quantidadeDeAnimaisPorRegiao();
